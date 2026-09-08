@@ -1,1 +1,0 @@
-package com.balkan.nautical.systems.model;
