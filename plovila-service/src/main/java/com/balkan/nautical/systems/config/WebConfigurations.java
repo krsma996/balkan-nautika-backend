@@ -41,9 +41,7 @@ public class WebConfigurations {
     }
 
     @Bean
-    public CorsFilter corsFilter(
-            CorsConfigurationSource corsConfigurationSource) {
-
+    public CorsFilter corsFilter(CorsConfigurationSource corsConfigurationSource) {
         return new CorsFilter(corsConfigurationSource);
     }
 }
