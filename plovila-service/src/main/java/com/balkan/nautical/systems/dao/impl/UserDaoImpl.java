@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 @Repository
 @RequiredArgsConstructor
 public class UserDaoImpl implements UserDaoCustom {
+	
 	 private final EntityManager entityManager;
 	 
 	 

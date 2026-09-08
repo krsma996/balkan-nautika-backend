@@ -6,6 +6,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.balkan.nautical.systems.dto.UserDto;
+import com.balkan.nautical.systems.errors.RestError;
 import com.balkan.nautical.systems.utils.ApiResponseCodeMessages;
 import com.balkan.nautical.systems.utils.ApplicationConstants;
 
@@ -40,10 +41,10 @@ public interface UserApi {
 	@Operation(summary = "Create user" , description = "Create user in locale DB and Keycloack")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = ApiResponseCodeMessages.CODE_200 , description = "OK", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserDto.class))),
-			@ApiResponse(responseCode = ApiResponseCodeMessages.CODE_400,  description = "Bad request, invalid input or parameters", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserDto.class))),
-	        @ApiResponse(responseCode = ApiResponseCodeMessages.CODE_403,  description = "Forbidden", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserDto.class))),
-	        @ApiResponse(responseCode = ApiResponseCodeMessages.CODE_404,  description = "Resource not found, invalid key", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserDto.class))),
-	        @ApiResponse(responseCode = ApiResponseCodeMessages.CODE_500,  description = "Internal error, something went wrong", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserDto.class))) })
+			@ApiResponse(responseCode = ApiResponseCodeMessages.CODE_400,  description = "Bad request, invalid input or parameters", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = RestError.class))),
+	        @ApiResponse(responseCode = ApiResponseCodeMessages.CODE_403,  description = "Forbidden", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = RestError.class))),
+	        @ApiResponse(responseCode = ApiResponseCodeMessages.CODE_404,  description = "Resource not found, invalid key", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = RestError.class))),
+	        @ApiResponse(responseCode = ApiResponseCodeMessages.CODE_500,  description = "Internal error, something went wrong", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = RestError.class))) })
 	@PostMapping(value = "/users",produces = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<UserDto> create(
             @Parameter(in = ParameterIn.DEFAULT, description = "User to create", required = false) @RequestBody(required = true) UserDto toCreate);
