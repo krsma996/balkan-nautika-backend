@@ -1,12 +1,14 @@
 package com.balkan.nautical.systems.model;
 
-import java.util.Date;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,12 +22,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserAccount {
+public class UserAccount  extends BaseEntity {
 
-    @Id
+	private static final long serialVersionUID = 8560150125645532916L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long userId;
+    private Long id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -35,7 +39,11 @@ public class UserAccount {
 
     @Column(name = "email_address")
     private String emailAddress;
-
-    @Column(name = "date_created")
-    private Date dateCreated;
+    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<UserInRole> userInRoles;
+    
+    @Column(name = "active")
+    private Boolean active;
+    
 }
