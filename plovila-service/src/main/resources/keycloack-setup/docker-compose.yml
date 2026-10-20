@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  # Keycloak Authentication Server
+  # - Koristi PostgreSQL instaliran na Windows host mašini
+  # - Dostupan na portu 8080
+  # - Pokreće se u development modu
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak
+
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://host.docker.internal:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: keycloak_password
+
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin_password
+
+      KC_HOSTNAME_STRICT: false
+      KC_HOSTNAME_STRICT_HTTPS: false
+      KC_HTTP_ENABLED: true
+
+    command:
+      - start-dev
+
+    ports:
+      - "8080:8080"
+
+    volumes:
+      - C:\keycloak-themes\my-theme:/opt/keycloak/themes/my-theme
+
+  # pgAdmin GUI
+  # - Povezuje se na lokalni PostgreSQL
+  # - Dostupan na portu 5050
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+
+    ports:
+      - "5050:80"
