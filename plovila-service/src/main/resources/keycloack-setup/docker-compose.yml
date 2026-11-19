@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # Keycloak Authentication Server
   # - Koristi PostgreSQL instaliran na Windows host mašini
@@ -30,7 +28,7 @@ services:
       - "8080:8080"
 
     volumes:
-      - C:\keycloak-themes\my-theme:/opt/keycloak/themes/my-theme
+      - ./my-theme:/opt/keycloak/themes/my-theme
 
   # pgAdmin GUI
   # - Povezuje se na lokalni PostgreSQL
